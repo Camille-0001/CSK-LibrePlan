@@ -8,9 +8,15 @@ import org.openqa.selenium.support.PageFactory;
 public class Page_CreateParticipant extends LPxPath{
 	
 	//champ code
-	@FindBy (xpath="//input[@class='z-textbox z-textbox-disd z-textbox-text-disd']")
-	WebElement champ_code;
+	//@FindBy (xpath="//input[@class='z-textbox z-textbox-disd z-textbox-text-disd']")
+	//WebElement champ_code;
 	
+	//champ de saisie de code
+	//permet de vÃ©rifier Ã©galement que la case "GÃ©nÃ©rer le code" est cochÃ©e par dÃ©faut
+	@FindBy (xpath="//input[@style='width:350px;' and 'disabled']")
+	WebElement disabled_champ_code;
+	
+	//case gÃ©nÃ©rer le code
 	@FindBy (xpath="//label[text()='Générer le code']/preceding-sibling::input")
 	WebElement generate_code;
 	
@@ -19,14 +25,16 @@ public class Page_CreateParticipant extends LPxPath{
 	WebElement champ_prenom;
 	
 	//champ nom
-	@FindBy (xpath="//span[@class='z-label' and text() = 'Nom']/parent::div/parent::td/following-sibling::td/div/input[@style='width:500px;']")
+	@FindBy (xpath="/html/body/div[1]/div/div/div[2]/div/div/div/div[2]/div/div/div/div/div[2]/div[3]/div[1]/div[2]/div[1]/div/fieldset[1]/div/div/div[3]/table/tbody[2]/tr[4]/td[2]/div/input")
 	WebElement champ_nom;
 	
 	//bouton id
 	@FindBy (xpath="//span[@class='z-label' and text() = 'ID']/parent::div/parent::td/following-sibling::td/div/input")
 	WebElement champ_id;
 	
-	@FindBy (xpath="//select[@style='width:200px;']")
+	//liste dÃ©roulante "Type" 
+	//permet Ã©galement de vÃ©rifier que "Ressource normale" est sÃ©lectionnÃ©e par dÃ©faut dans la liste dÃ©roulante
+	@FindBy (xpath="//select[@style='width:200px;' and @selectedindex='1']")
 	WebElement select_type;
 	
 	@FindBy (xpath="//label[.='Non lié']/preceding-sibling::input")
@@ -38,51 +46,51 @@ public class Page_CreateParticipant extends LPxPath{
 	@FindBy (xpath="//label[.='Créer un nouvel utilisateur']/preceding-sibling::input")
 	WebElement radio_creer_un_nouvel_utilisateur;
 	
-	@FindBy (xpath="//label[.='Créer un nouvel utilisateur']/preceding-sibling::input")
+	@FindBy (xpath="/html/body/div/div/div/div[2]/div/div/div/div[2]/div/div/div/div/div[2]/div[3]/div[1]/div[2]/div[1]/div/fieldset[2]/div/div[2]/div[2]/div/div/div[3]/table/tbody[2]/tr[1]/td[2]/div/input")
+	WebElement nom_utilisateur;
+	
+	@FindBy (xpath="/html/body/div/div/div/div[2]/div/div/div/div[2]/div/div/div/div/div[2]/div[3]/div[1]/div[2]/div[1]/div/fieldset[2]/div/div[2]/div[2]/div/div/div[3]/table/tbody[2]/tr[2]/td[2]/div/input")
+	WebElement mot_de_passe;
+	
+	@FindBy (xpath="/html/body/div/div/div/div[2]/div/div/div/div[2]/div/div/div/div/div[2]/div[3]/div[1]/div[2]/div[1]/div/fieldset[2]/div/div[2]/div[2]/div/div/div[3]/table/tbody[2]/tr[3]/td[2]/div/input")
+	WebElement confirmation_mot_de_passe;
+	
+	@FindBy (xpath="/html/body/div/div/div/div[2]/div/div/div/div[2]/div/div/div/div/div[2]/div[3]/div[1]/div[2]/div[1]/div/fieldset[2]/div/div[2]/div[2]/div/div/div[3]/table/tbody[2]/tr[4]/td[2]/div/input")
+	WebElement email;
+	
+	@FindBy (xpath="//td[@class='z-button-cm' and text() = 'Enregistrer' and not (ancestor::div[contains(@style,'display:none')])]")
 	WebElement bouton_enregistrer;
 	
-	@FindBy (xpath="//label[.='Créer un nouvel utilisateur']/preceding-sibling::input")
+	@FindBy (xpath="//td[@class='z-button-cm' and text() = 'Sauver et continuer' and not (ancestor::div[contains(@style,'display:none')])]")
 	WebElement bouton_sauver_et_continuer;
 	
-	@FindBy (xpath="//label[.='Créer un nouvel utilisateur']/preceding-sibling::input")
+	@FindBy (xpath="//td[@class='z-button-cm' and text() = 'Annuler' and not (ancestor::div[contains(@style,'display:none')])]")
 	WebElement bouton_annuler;
 	
-	//bouton menu_ressources
-	/*
-	 @FindBy (xpath=MENU_RESSOURCES)
-	WebElement menu_ressources;
-	*/
+	@FindBy (xpath="//span[.='DonnÃ©es personnelles']")
+	WebElement onglet_donneesPerso;
 	
-	//lien participants
-	/*
-	@FindBy (xpath=MENU_RESSOURCES+"/following::a[position()=1]")
-	WebElement lien_createPartForm;
-	*/
-	
-	
-	// Fonction permettant d'accéder à la liste des participants depuis la page d'acceuil
-	/*
-	public Page_CreateParticipant goToCreatePartForm() {
-		menu_ressources.click();
-		lien_createPartForm.click();
-		return PageFactory.initElements(driver.Page_CreateParticipant.class);
-	}
-	*/
 		
-	public Page_ListeParticipant fillForm(WebDriver driver) {
+	public Page_ListeParticipant fillForm(WebDriver driver) throws InterruptedException {
 		champ_prenom.clear();
-		champ_prenom.sendKeys("patate");
+		champ_prenom.sendKeys("Jean");
 		champ_nom.clear();
-		champ_nom.sendKeys("Mr");
+		champ_nom.sendKeys("DU");
 		champ_id.clear();
-		champ_id.sendKeys("mpa");
+		champ_id.sendKeys("jdu");
+		radio_creer_un_nouvel_utilisateur.click();
+		nom_utilisateur.sendKeys("jdu");
+		mot_de_passe.sendKeys("$jdumdp1");
+		confirmation_mot_de_passe.sendKeys("$jdumdp1");
+		email.sendKeys("jdu@test.fr");
 		bouton_enregistrer.click();
 		return PageFactory.initElements(driver, Page_ListeParticipant.class);
 	}
 	
 	public boolean elementsPresents() {
         boolean presence;
-        if (champ_code.isDisplayed()
+        if (onglet_donneesPerso.isDisplayed()
+        && disabled_champ_code.isDisplayed()
         && generate_code.isDisplayed()
         && champ_prenom.isDisplayed()
         && champ_nom.isDisplayed()
@@ -101,4 +109,5 @@ public class Page_CreateParticipant extends LPxPath{
         }
         return presence;
     }
+	
 }

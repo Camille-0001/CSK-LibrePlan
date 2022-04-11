@@ -21,12 +21,13 @@ public class PageConnexion {
 	WebElement bouton_submit;
 	
 	//connexion à LibrePlan && rédirection vers la Page Accueil	
-	public PagePlanificationProjets signIn(WebDriver driver) {
+	public PagePlanificationProjets signIn(WebDriver driver) throws InterruptedException {
 		champ_username.clear();
 		champ_username.sendKeys("admin");
 		champ_password.clear();
 		champ_password.sendKeys("admin");
 		bouton_submit.click();
+		Thread.sleep(1000);
 		return PageFactory.initElements(driver, PagePlanificationProjets.class);
 	
 	}

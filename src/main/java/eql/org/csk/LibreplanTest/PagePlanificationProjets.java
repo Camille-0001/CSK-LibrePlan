@@ -15,8 +15,20 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class PagePlanificationProjets {
-
+public class PagePlanificationProjets extends LPxPath{
+	
+	//onglet calendrier
+	@FindBy (xpath="//button[contains(text(),'Calendrier')]")
+	WebElement bouton_calendar;
+	
+	//bouton ressources
+	@FindBy (xpath=MENU_RESSOURCES)
+	WebElement menu_ressources;
+	
+	//bouton participants
+	@FindBy (xpath="//a[@href='/libreplan/resources/worker/worker.zul']")
+	WebElement bouton_participants;
+	
 	//bouton submit
 	@FindBy (xpath="//span[@class='planner-icon z-button']//td[@class='z-button-cm']/img")
 	WebElement bouton_creer_projet;
@@ -255,7 +267,29 @@ public class PagePlanificationProjets {
 			return true;
 		
 		}
+	
+	
+	/* Partie rajoutée par Stéphane*/
 
+	public Page_ListeParticipant goToListePartPage(WebDriver driver) throws InterruptedException {
+		menu_ressources.click();
+		if(!bouton_participants.isDisplayed()) {
+			menu_ressources.click();
+		}
+		bouton_participants.click();
+		return PageFactory.initElements(driver, Page_ListeParticipant.class);
+	}
+	
+	public boolean elementsPresents() {
+        boolean presence;
+        if (bouton_calendar.isDisplayed()) {
+            presence=true;
+        }
+        else {
+            presence=false;
+        }
+        return presence;
+    }
 	
 	
 }
