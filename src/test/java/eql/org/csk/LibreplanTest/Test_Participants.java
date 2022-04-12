@@ -30,7 +30,7 @@ public class Test_Participants {
 	public void Test_GRE001() throws InterruptedException {
 		PageConnexion page_connexion = PageFactory.initElements(driver, PageConnexion.class);
 
-		//Accès à la page d'accueil temporaire
+		//Accès à la page d'accueil
 		PagePlanificationProjets page_planifProjets = page_connexion.signIn(driver);
 		//ASSERTION : Vérification que l'on se trouve bien sur la page d'acceuil en confirmant que l'onglet "Calendrier" est affiché.
 		page_planifProjets.elementsPresents();
@@ -43,7 +43,7 @@ public class Test_Participants {
 		// Accès à la page de création d'un participant
 		Page_CreateParticipant page_createPart = page_listePart.goToCreatePartPage(driver);
 		//ASSERTION : Vérification de la présence des éléments attendus sur la page d'accueil de création d'un participant
-		//assertTrue(page_createPart.elementsPresents());
+		assertTrue(page_createPart.elementsPresents());
 		
 		//Remplissage du 1er formulaire de création d'un participant
 		page_createPart.fillFirstForm(driver, "Jean", "DU", "jdu");

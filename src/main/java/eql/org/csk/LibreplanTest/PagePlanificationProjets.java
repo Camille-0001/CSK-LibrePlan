@@ -29,6 +29,10 @@ public class PagePlanificationProjets extends LPxPath{
 	@FindBy (xpath="//a[@href='/libreplan/resources/worker/worker.zul']")
 	WebElement bouton_participants;
 	
+	//bouton critere
+	@FindBy (xpath="//a[@href='/libreplan/resources/criterions/criterions.zul']")
+	WebElement bouton_criteres;
+	
 	//bouton submit
 	@FindBy (xpath="//span[@class='planner-icon z-button']//td[@class='z-button-cm']/img")
 	WebElement bouton_creer_projet;
@@ -278,6 +282,15 @@ public class PagePlanificationProjets extends LPxPath{
 		}
 		bouton_participants.click();
 		return PageFactory.initElements(driver, Page_ListeParticipant.class);
+	}
+	
+	public Page_ListeCritere goToListeCritPage(WebDriver driver) throws InterruptedException {
+		menu_ressources.click();
+		if(!bouton_criteres.isDisplayed()) {
+			menu_ressources.click();
+		}
+		bouton_criteres.click();
+		return PageFactory.initElements(driver, Page_ListeCritere.class);
 	}
 	
 	public boolean elementsPresents() {

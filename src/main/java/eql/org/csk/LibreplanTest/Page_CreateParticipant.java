@@ -67,7 +67,7 @@ public class Page_CreateParticipant extends LPxPath{
 	@FindBy (xpath="//td[@class='z-button-cm' and text() = 'Annuler' and not (ancestor::div[contains(@style,'display:none')])]")
 	WebElement bouton_annuler;
 	
-	@FindBy (xpath="//span[.='DonnÃ©es personnelles']")
+	@FindBy (xpath="//span[.='Données personnelles']")
 	WebElement onglet_donneesPerso;
 	
 		
