@@ -12,11 +12,11 @@ public class Page_CreateParticipant extends LPxPath{
 	//WebElement champ_code;
 	
 	//champ de saisie de code
-	//permet de vÃ©rifier Ã©galement que la case "GÃ©nÃ©rer le code" est cochÃ©e par dÃ©faut
+	//permet de vérifier également que la case "Générer le code" est cochée par défaut
 	@FindBy (xpath="//input[@style='width:350px;' and 'disabled']")
 	WebElement disabled_champ_code;
 	
-	//case gÃ©nÃ©rer le code
+	//case générer le code
 	@FindBy (xpath="//label[text()='Générer le code']/preceding-sibling::input")
 	WebElement generate_code;
 	
@@ -32,8 +32,8 @@ public class Page_CreateParticipant extends LPxPath{
 	@FindBy (xpath="//span[@class='z-label' and text() = 'ID']/parent::div/parent::td/following-sibling::td/div/input")
 	WebElement champ_id;
 	
-	//liste dÃ©roulante "Type" 
-	//permet Ã©galement de vÃ©rifier que "Ressource normale" est sÃ©lectionnÃ©e par dÃ©faut dans la liste dÃ©roulante
+	//liste déroulante "Type" 
+	//permet également de vérifier que "Ressource normale" est sélectionnée par défaut dans la liste déroulante
 	@FindBy (xpath="//select[@style='width:200px;' and @selectedindex='1']")
 	WebElement select_type;
 	
@@ -56,7 +56,7 @@ public class Page_CreateParticipant extends LPxPath{
 	WebElement confirmation_mot_de_passe;
 	
 	@FindBy (xpath="/html/body/div/div/div/div[2]/div/div/div/div[2]/div/div/div/div/div[2]/div[3]/div[1]/div[2]/div[1]/div/fieldset[2]/div/div[2]/div[2]/div/div/div[3]/table/tbody[2]/tr[4]/td[2]/div/input")
-	WebElement email;
+	WebElement champ_email;
 	
 	@FindBy (xpath="//td[@class='z-button-cm' and text() = 'Enregistrer' and not (ancestor::div[contains(@style,'display:none')])]")
 	WebElement bouton_enregistrer;
@@ -71,18 +71,21 @@ public class Page_CreateParticipant extends LPxPath{
 	WebElement onglet_donneesPerso;
 	
 		
-	public Page_ListeParticipant fillForm(WebDriver driver) throws InterruptedException {
+	public void fillFirstForm(WebDriver driver, String prenom, String nom, String id) throws InterruptedException {
 		champ_prenom.clear();
-		champ_prenom.sendKeys("Jean");
+		champ_prenom.sendKeys(prenom);
 		champ_nom.clear();
-		champ_nom.sendKeys("DU");
+		champ_nom.sendKeys(nom);
 		champ_id.clear();
-		champ_id.sendKeys("jdu");
+		champ_id.sendKeys(id);
 		radio_creer_un_nouvel_utilisateur.click();
-		nom_utilisateur.sendKeys("jdu");
-		mot_de_passe.sendKeys("$jdumdp1");
-		confirmation_mot_de_passe.sendKeys("$jdumdp1");
-		email.sendKeys("jdu@test.fr");
+	}
+	
+	public Page_ListeParticipant fillSecondForm(WebDriver driver, String username, String password, String conf_pw, String email) throws InterruptedException {	
+		nom_utilisateur.sendKeys(username);
+		mot_de_passe.sendKeys(password);
+		confirmation_mot_de_passe.sendKeys(conf_pw);
+		champ_email.sendKeys(email);
 		bouton_enregistrer.click();
 		return PageFactory.initElements(driver, Page_ListeParticipant.class);
 	}

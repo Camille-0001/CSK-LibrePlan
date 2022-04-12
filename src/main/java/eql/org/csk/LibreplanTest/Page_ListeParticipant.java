@@ -81,13 +81,25 @@ public class Page_ListeParticipant extends LPxPath{
 	@FindBy(xpath = "/html/body/div/div/div/div[2]/div/div/div/div[2]/div/div/div/div/div[1]/div[3]/div[4]/div[4]/div/table/tbody/tr/td[1]/table/tbody/tr/td[2]/em/button")
 	WebElement first_page;
 	
+	@FindBy(xpath = "//span[.='DU']")
+	WebElement span_DU;
+	
+	@FindBy(xpath = "//span[.='DU']/ancestor::tr/td[2]/div/span")
+	WebElement span_Jean;
+	
+	@FindBy(xpath = "//span[.='DU']/ancestor::tr/td[3]/div/span")
+	WebElement span_jdu;
+	
+	@FindBy(xpath = "/html/body/div/div/div/div[2]/div/div/div/div[2]/div/div/div/div/div[1]/div[3]/div[4]/div[4]/div/table/tbody/tr/td[5]/input")
+	WebElement page_number;
+	
 	public Page_CreateParticipant goToCreatePartPage(WebDriver driver) {
 		createPart_Button.click();
 		return PageFactory.initElements(driver, Page_CreateParticipant.class);
 	}
 	
-	public void useFilter() {
-		personnal_details.sendKeys("Jean");
+	public void useFilter(String search) {
+		personnal_details.sendKeys(search);
 		button_filter.click();		
 	}
 	
@@ -95,12 +107,21 @@ public class Page_ListeParticipant extends LPxPath{
 		button_moreOptions.click();
 	}
 	
-	public void checkListPages() {
+	public void goToLastPage() {
 		personnal_details.clear();
 		button_filter.click();
-		last_page.click();
+		last_page.click();	
+	}
+	
+	public void goToFirstPage() {
 		first_page.click();
+	}
+	
+	public void goToNextPage() {
 		next_page.click();
+	}
+	
+	public void goToPrecedentPage() {
 		precedent_page.click();
 	}
 	

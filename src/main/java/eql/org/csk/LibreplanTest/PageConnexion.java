@@ -33,14 +33,14 @@ public class PageConnexion {
 	}
 	
 	//connexion à LibrePlan avec un compte utilisateur && redirection vers la Page d'accueil (PagePlanificationProjets)
-	public PagePlanificationProjets signInUser(WebDriver driver, String username, String password) throws InterruptedException {
+	public Page_TableauDeBord signInUser(WebDriver driver, String username, String password) throws InterruptedException {
 		champ_username.clear();
 		champ_username.sendKeys(username);
 		champ_password.clear();
 		champ_password.sendKeys(password);
 		bouton_submit.click();
 		Thread.sleep(1000);
-		return PageFactory.initElements(driver, PagePlanificationProjets.class);
+		return PageFactory.initElements(driver, Page_TableauDeBord.class);
 	
 	}
 	
