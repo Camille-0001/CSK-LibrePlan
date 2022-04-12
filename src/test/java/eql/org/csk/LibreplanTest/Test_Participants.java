@@ -30,43 +30,44 @@ public class Test_Participants {
 	public void Test_GRE001() throws InterruptedException {
 		PageConnexion page_connexion = PageFactory.initElements(driver, PageConnexion.class);
 
-		//AccÃ¨s Ã  la page d'accueil temporaire
+		//Accès à la page d'accueil temporaire
 		PagePlanificationProjets page_planifProjets = page_connexion.signIn(driver);
-		//ASSERTION : VÃ©rification que l'on se trouve bien sur la page d'acceuil en confirmant que l'onglet "Calendrier" est affichÃ©.
+		//ASSERTION : Vérification que l'on se trouve bien sur la page d'acceuil en confirmant que l'onglet "Calendrier" est affiché.
 		page_planifProjets.elementsPresents();
 		
-		// AccÃ¨s Ã  la page prÃ©sentant la liste des participants
+		// Accès à la page présentant la liste des participants
 		Page_ListeParticipant page_listePart = page_planifProjets.goToListePartPage(driver);
-		//ASSERTION : VÃ©rification de la prÃ©sence des Ã©lÃ©ments attendus sur la page reprÃ©sentant la liste des participants
+		//ASSERTION : Vérification de la présence des éléments attendus sur la page représentant la liste des participants
 		page_listePart.elementsPresents();
 		
-		// AccÃ¨s Ã  la page de crÃ©ation d'un participant
+		// Accès à la page de création d'un participant
 		Page_CreateParticipant page_createPart = page_listePart.goToCreatePartPage(driver);
-		//ASSERTION : VÃ©rification de la prÃ©sence des Ã©lÃ©ments attendus sur la page de crÃ©ation
+		//ASSERTION : Vérification de la présence des éléments attendus sur la page de création
 		//assertTrue(page_createPart.elementsPresents());
 		
-		//Remplissage du formulaire de crÃ©ation d'un participant + enregistrement
+		//Remplissage du formulaire de création d'un participant + enregistrement
 		page_listePart = page_createPart.fillForm(driver);
 		
 		/*
-		//ASSERTION : VÃ©rification de l'affichage du formulaire de crÃ©ation d'un nouvel utilisateur et des Ã©lÃ©ments associÃ©s
+		//ASSERTION : Vérification de l'affichage du formulaire de création d'un nouvel utilisateur et des éléments associés
 		assertTrue(page_createPart.nom_utilisateur.isDisplayed());
 	    assertTrue(page_createPart.mot_de_passe.isDisplayed());
 	    assertTrue(page_createPart.confirmation_mot_de_passe.isDisplayed());
 	    assertTrue(page_createPart.email.isDisplayed());
 	    */
 	    
-		//ASSERTION : VÃ©rification de l'affichage du message "Participant enregistrÃ©"
+		//ASSERTION : Vérification de l'affichage du message "Participant enregistré"
 		String message_affiche = page_listePart.message_info.getText();
 		String message_attendu = "Participant enregistré";
 		assertEquals(message_affiche, message_attendu);
 		
 		//Utilisation de la fonction filtre
 		page_listePart.useFilter();
-		//ASSERTION : VÃ©rifier que Jean DU est affichÃ© dans le tableau des participants filtrÃ©
+		//ASSERTION : Vérifier que "Jean DU" est affiché dans le tableau des participants filtré
 		
+		// 
 		page_listePart.useMoreOptions();
-		// ASSERTION : VÃ©rifier qu'au clic sur le bouton "Plus d'options", de nouveaux Ã©lÃ©ments apparaissent
+		// ASSERTION : Vérifier qu'au clic sur le bouton "Plus d'options", de nouveaux éléments apparaissent
 		assertTrue(page_listePart.first_date_field.isDisplayed());
 		assertTrue(page_listePart.second_date_field.isDisplayed());
 		assertTrue(page_listePart.liste_deroulante.isDisplayed());
@@ -74,8 +75,12 @@ public class Test_Participants {
 		assertTrue(page_listePart.liste_deroulante_2.isDisplayed());
 		assertTrue(page_listePart.liste_deroulante_3.isDisplayed());
 		
+		//Vérification des boutons de navigation pour changer de page sur la liste des participants
 		page_listePart.checkListPages();
-
-	}	
-	
+		
+		//Déconnexion du compte admin puis reconnexion avec les identifiants de l'utilisateur nouvellement créé
+		page_connexion = page_listePart.logout(driver);
+		page_connexion.signInUser(driver, "", "");
+		
+		}
 	}

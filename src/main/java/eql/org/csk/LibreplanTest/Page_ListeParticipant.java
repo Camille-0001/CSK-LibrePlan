@@ -11,6 +11,10 @@ public class Page_ListeParticipant extends LPxPath{
 	//div[@class='message_INFO']/span
 	WebElement message_info;
 	
+	//bouton déconnexion
+	@FindBy (xpath="//a[.='[Déconnexion]']")
+	WebElement bouton_deconnexion;
+	
 	@FindBy(xpath = "//td[contains(@class,'z-button-cm') and text() = 'Créer' and not(ancestor::div[contains(@style,'display:none')])]") 
 	WebElement createPart_Button;
 	
@@ -98,6 +102,11 @@ public class Page_ListeParticipant extends LPxPath{
 		first_page.click();
 		next_page.click();
 		precedent_page.click();
+	}
+	
+	public PageConnexion logout(WebDriver driver) {
+		bouton_deconnexion.click();
+		return PageFactory.initElements(driver, PageConnexion.class);
 	}
 	
 	public boolean elementsPresents() {
